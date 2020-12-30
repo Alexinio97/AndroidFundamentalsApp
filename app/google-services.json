@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "234396937565",
+    "project_id": "androidfundamentalsapp",
+    "storage_bucket": "androidfundamentalsapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:234396937565:android:876861bfe71cfe49598cb4",
+        "android_client_info": {
+          "package_name": "com.example.androidfundamentalsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "234396937565-k5o538lguo5i9vvnom6gr7lceugrig6u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmvR389rRKQazw_xzejYzSEzgGZOcvtPw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "234396937565-k5o538lguo5i9vvnom6gr7lceugrig6u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
