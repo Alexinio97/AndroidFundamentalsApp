@@ -1,41 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        android:orientation="vertical"
-        android:layout_centerHorizontal="true">
+        android:orientation="vertical">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:src="@drawable/ic_main_logo"/>
+            android:layout_gravity="center"
+            android:src="@drawable/ic_main_logo" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="My Quizz"
+            android:text="@string/app_name_logo"
             android:layout_marginTop="12dp"
+            android:layout_gravity="center"
             android:textSize="40dp"/>
     </LinearLayout>
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:layout_width="240dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        app:startIconDrawable="@drawable/ic_email"
         android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:id="@+id/txt_email"/>
-    <com.google.android.material.textfield.TextInputEditText
-        android:layout_width="240dp"
+        android:id="@+id/txt_email"
+        android:layout_centerInParent="true">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_email"
+        android:hint="Password"
         android:layout_marginTop="15dp"
-        android:hint="*****"
-        android:inputType="textPassword"
+        app:startIconDrawable="@drawable/ic_lock"
         android:id="@+id/txt_password"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/txt_email">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

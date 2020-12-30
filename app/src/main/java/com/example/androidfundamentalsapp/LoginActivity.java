@@ -13,15 +13,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.w3c.dom.Text;
+
 public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
-    private TextInputEditText email;
-    private TextInputEditText password;
+    private Button btnRegister;
+    private TextInputLayout email;
+    private TextInputLayout password;
+
     private FirebaseAuth m_auth;
     private FirebaseUser m_user;
     private static String TAG="LoginActivity";
@@ -48,15 +53,27 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.txt_password);
 
         btnLogin = findViewById(R.id.btn_login);
+        btnRegister = findViewById(R.id.btn_register);
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(email.getText().equals("") || password.getText().equals(""))
+                if(email.getEditText().getText().toString().equals("")
+                        || password.getEditText().getText().toString().equals(""))
                 {
-                    Toast.makeText(LoginActivity.this, "Email and password can't be empty!", Toast.LENGTH_LONG).show();
+                    Log.w(TAG,"No input received!");
+                    Toast.makeText(LoginActivity.this, "Email and password can't be empty!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                DoLogin(email.toString(),password.toString());
+                DoLogin(email.getEditText().getText().toString(),password.getEditText().getText().toString());
+            }
+        });
+
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent registerIntent = new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(registerIntent);
             }
         });
     }
@@ -71,12 +88,13 @@ public class LoginActivity extends AppCompatActivity {
                         {
                             Log.d(TAG,"SignIn: succesful!");
                             m_user = m_auth.getCurrentUser();
-                            Intent mainIntent = new Intent("MainActivity");
+                            Intent mainIntent = new Intent(LoginActivity.this,MainActivity.class);
                             startActivity(mainIntent);
+                            Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
                         }
                         else{
                             Log.w(TAG,"SignIn: failure!",task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, "Authentication failed!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
