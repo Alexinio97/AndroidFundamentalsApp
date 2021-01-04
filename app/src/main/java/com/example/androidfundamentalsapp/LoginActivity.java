@@ -23,7 +23,7 @@ import org.w3c.dom.Text;
 
 public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
-    private Button btnRegister;
+    private Button btnGoToRegister;
     private TextInputLayout email;
     private TextInputLayout password;
 
@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         {
             Log.d(TAG,"User logged in already!");
             Intent mainIntent = new Intent(this,MainActivity.class);
+            mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(mainIntent);
         }
     }
@@ -53,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.txt_password);
 
         btnLogin = findViewById(R.id.btn_login);
-        btnRegister = findViewById(R.id.btn_register);
+        btnGoToRegister = findViewById(R.id.btn_go_to_register);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        btnGoToRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent registerIntent = new Intent(LoginActivity.this,RegisterActivity.class);

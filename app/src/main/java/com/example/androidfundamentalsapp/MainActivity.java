@@ -1,27 +1,27 @@
 package com.example.androidfundamentalsapp;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 
-
-import com.example.androidfundamentalsapp.Fragments.HomeFragment;
-import com.example.androidfundamentalsapp.Fragments.MyQuizzesFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
+    private FirebaseAuth m_auth;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        m_auth = FirebaseAuth.getInstance();
 
         BottomNavigationView navView = findViewById(R.id.bottom_navigation);
 
