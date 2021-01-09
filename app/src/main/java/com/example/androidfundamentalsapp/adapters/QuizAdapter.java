@@ -1,4 +1,4 @@
-package com.example.androidfundamentalsapp.Adapters;
+package com.example.androidfundamentalsapp.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,11 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfundamentalsapp.R;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
-import Models.Quiz;
+import model.Quiz;
 
 public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder> {
     private List<Quiz> m_quizzes;

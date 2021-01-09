@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    tools:context=".ResultActivity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:text="Congratulations, you just finished "
+        android:id="@+id/txt_quiz_title_prefix_result"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primaryDarkColor"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:id="@+id/txt_quiz_title_result"
+        android:textSize="30dp"
+        android:layout_below="@id/txt_quiz_title_prefix_result"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_catching_pokemon"
+        android:layout_above="@id/txt_pokemon_motto"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/txt_user_score_prefix"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="40dp"
+        android:id="@+id/txt_pokemon_motto"
+        android:textStyle="italic"
+        android:textSize="15dp"
+        android:text="Gotta solve them all!"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_user_score_prefix"
+        android:textColor="@color/primaryDarkColor"
+        android:text="Your score:"
+        android:textSize="25dp"
+        android:layout_above="@id/txt_user_score"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="@color/primaryDarkColor"
+        android:text="5"
+        android:textSize="70dp"
+        android:id="@+id/txt_user_score"/>
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@color/secondaryColor"
+        android:textColor="@color/primaryTextColor"
+        android:layout_marginTop="50dp"
+        android:layout_below="@id/txt_user_score"
+        android:id="@+id/btn_back_to_my_quizzes"
+        android:text="Go to my quizzes"/>
+</RelativeLayout>

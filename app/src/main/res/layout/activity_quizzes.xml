@@ -5,9 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".QuizzesActivity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="25dp"
+        android:textColor="@color/primaryDarkColor"
+        android:id="@+id/txt_quizzes_category_title"/>
     <androidx.recyclerview.widget.RecyclerView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:layout_below="@+id/txt_quizzes_category_title"
     android:id="@+id/rv_quiz_list"/>
 
 

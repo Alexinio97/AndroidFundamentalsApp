@@ -1,4 +1,4 @@
-package com.example.androidfundamentalsapp.Fragments;
+package com.example.androidfundamentalsapp.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,15 +15,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.androidfundamentalsapp.Adapters.CategoriesAdapter;
+import com.example.androidfundamentalsapp.adapters.CategoriesAdapter;
 import com.example.androidfundamentalsapp.LoginActivity;
-import com.example.androidfundamentalsapp.MainActivity;
 import com.example.androidfundamentalsapp.QuizzesActivity;
 import com.example.androidfundamentalsapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.internal.RecaptchaActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -31,11 +29,13 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-import Models.Category;
+import model.Category;
 
 public class HomeFragment extends Fragment implements CategoriesAdapter.OnCategoryListener {
     private static String TAG="HomeFragment";
     private static final String CATEGORY_ID="com.example.androidfundamentalsapp.category_id";
+    private static final String CATEGORY_TITLE="com.example.androidfundamentalsapp.category_title";
+
     private TextView txtFragment;
     private Button btnLogout;
     private List<Category> m_categories;
@@ -102,6 +102,7 @@ public class HomeFragment extends Fragment implements CategoriesAdapter.OnCatego
         String categoryId = m_categories.get(position).getId();
         if(m_quizzesIntent != null) {
             m_quizzesIntent.putExtra(CATEGORY_ID,categoryId);
+            m_quizzesIntent.putExtra(CATEGORY_TITLE,m_categories.get(position).getCategoryName());
             startActivity(m_quizzesIntent);
 
         }

@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.androidfundamentalsapp.Fragments.HomeFragment"
+        android:name="com.example.androidfundamentalsapp.fragments.HomeFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_home"/>
     <fragment
         android:id="@+id/nav_my_quizzes"
-        android:name="com.example.androidfundamentalsapp.Fragments.MyQuizzesFragment"
+        android:name="com.example.androidfundamentalsapp.fragments.MyQuizzesFragment"
         android:label="@string/my_quizzes"
         tools:layout="@layout/fragment_my_quizzes"/>
 

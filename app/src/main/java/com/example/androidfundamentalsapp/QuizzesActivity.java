@@ -11,24 +11,26 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.androidfundamentalsapp.Adapters.QuizAdapter;
+import com.example.androidfundamentalsapp.adapters.QuizAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import Models.Quiz;
+import model.Quiz;
 
 public class QuizzesActivity extends AppCompatActivity implements QuizAdapter.OnQuizListener {
     private static final String CATEGORY_ID="com.example.androidfundamentalsapp.category_id";
     private static final String QUIZ_ID="com.example.androidfundamentalsapp.quiz_id";
+    private static final String QUIZ_TITLE="com.example.androidfundamentalsapp.quiz_title";
+    private static final String CATEGORY_TITLE="com.example.androidfundamentalsapp.category_title";
     private static final String TAG="QuizzesActivity";
 
+    TextView categoryTitle;
     private FirebaseFirestore m_db;
     // Quizzes
     private List<Quiz> quizList;
@@ -41,6 +43,8 @@ public class QuizzesActivity extends AppCompatActivity implements QuizAdapter.On
         setContentView(R.layout.activity_quizzes);
 
         RecyclerView rvQuizList = findViewById(R.id.rv_quiz_list);
+        categoryTitle = findViewById(R.id.txt_quizzes_category_title);
+        categoryTitle.setText(getIntent().getStringExtra(CATEGORY_TITLE));
         categoryId = getIntent().getStringExtra(CATEGORY_ID);
         m_db = FirebaseFirestore.getInstance();
         // prepare the intent for questions
@@ -75,6 +79,7 @@ public class QuizzesActivity extends AppCompatActivity implements QuizAdapter.On
     public void onQuizClick(int position) {
         questionsIntent.putExtra(QUIZ_ID,quizList.get(position).getId());
         questionsIntent.putExtra(CATEGORY_ID,categoryId);
+        questionsIntent.putExtra(QUIZ_TITLE,quizList.get(position).getTitle());
         startActivity(questionsIntent);
     }
 }

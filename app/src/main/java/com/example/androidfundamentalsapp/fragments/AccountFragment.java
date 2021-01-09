@@ -1,4 +1,4 @@
-package com.example.androidfundamentalsapp.Fragments;
+package com.example.androidfundamentalsapp.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,12 +11,10 @@ import androidx.fragment.app.Fragment;
 
 import com.example.androidfundamentalsapp.R;
 
-public class MyQuizzesFragment extends Fragment {
-
+public class AccountFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_my_quizzes,container,false);
-        return root;
+        return inflater.inflate(R.layout.fragment_account,container,false);
     }
 }

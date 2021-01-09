@@ -4,26 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="15dp"
     tools:context=".QuestionsActivity">
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/layout_header"
+        android:background="@color/primaryColor">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/primaryTextColor"
+        android:text="Teest"
+        android:textStyle="bold"
+        android:layout_centerInParent="true"
+        android:id="@+id/txt_quiz_title_header"
+        android:textSize="25dp"/>
+    </RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_header"
         android:id="@+id/txt_question_string_prefix"
-        android:textSize="17dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp"
+        android:textStyle="bold"
+        android:textColor="@color/primaryDarkColor"
+        android:textSize="20dp"
         android:text="Question: "/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txt_question_string"
-        android:textSize="17dp"
+        android:layout_below="@id/layout_header"
+        android:layout_marginTop="15dp"
+        android:textStyle="bold"
+        android:textColor="@color/primaryDarkColor"
+        android:textSize="20dp"
         android:layout_toEndOf="@id/txt_question_string_prefix"/>
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/rg_questions"
+        android:padding="10dp"
         android:layout_marginTop="20dp"
+        android:layout_marginStart="5dp"
         android:layout_below="@+id/txt_question_string"/>
 
     <LinearLayout
@@ -32,33 +56,33 @@
         android:layout_below="@id/txt_question_string"
         android:layout_marginTop="40dp"
         android:orientation="horizontal">
-    <Button
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_arrow_back"
-        android:text="Back"
-        android:background="@color/primaryLightColor"
-        android:textColor="@color/secondaryTextColor"
-        android:id="@+id/btn_next_question"
-        android:layout_marginStart="1dp"
-        android:layout_gravity="bottom"/>
-    <ProgressBar
-        android:layout_width="200dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:id="@+id/pb_quiz_progress"
-        android:layout_gravity="bottom"
-        android:layout_height="40dp"/>
-    <Button
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:text="Next"
-        android:drawableRight="@drawable/ic_arrow_forward"
-        android:background="@color/primaryLightColor"
-        android:textColor="@color/secondaryTextColor"
-        android:layout_gravity="bottom"
-        android:id="@+id/btn_last_question"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/secondaryLightColor"
+            android:layout_gravity="bottom">
+        <Button
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_arrow_back"
+            android:text="Back"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:id="@+id/btn_last_question" />
+        <ProgressBar
+            android:layout_width="190dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:id="@+id/pb_quiz_progress"
+            android:layout_height="40dp"/>
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:drawableRight="@drawable/ic_arrow_forward"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:id="@+id/btn_next_question"/>
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth m_auth;
-
+    private static final String QUIZ_FRAGMENT="com.example.androidfundamentalsapp.quiz_fragment";
 
 
     @Override
@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         m_auth = FirebaseAuth.getInstance();
 
+        int myQuizzes = getIntent().getIntExtra(QUIZ_FRAGMENT,0);
         BottomNavigationView navView = findViewById(R.id.bottom_navigation);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -31,5 +32,9 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this,R.id.nav_fragment);
         NavigationUI.setupActionBarWithNavController(this,navController,appBarConfiguration);
         NavigationUI.setupWithNavController(navView,navController);
+        if(myQuizzes != 0)
+        {
+            navController.navigate(R.id.nav_my_quizzes);
+        }
     }
 }
