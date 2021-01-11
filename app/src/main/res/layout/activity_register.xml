@@ -24,7 +24,6 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:hint="First name"
-
             android:id="@+id/txt_first_name"
             android:layout_centerInParent="true">
             <com.google.android.material.textfield.TextInputEditText

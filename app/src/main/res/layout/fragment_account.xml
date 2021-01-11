@@ -1,13 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="45dp"
     tools:context=".fragments.AccountFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:hint="First name"
+        app:boxStrokeColor="@color/primaryDarkColor"
+        android:enabled="false"
+        android:id="@+id/txt_account_first_name">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-</FrameLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:hint="Last name"
+        android:layout_toRightOf="@+id/txt_account_first_name"
+        android:layout_marginStart="25dp"
+        android:id="@+id/txt_account_last_name">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:enabled="false"
+        android:layout_below="@id/txt_account_first_name"
+        android:layout_marginTop="20dp"
+        android:id="@+id/txt_account_email">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/txt_account_phone"
+        android:enabled="false"
+        android:hint="Phone"
+        android:layout_below="@+id/txt_account_email">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/txt_account_phone"
+        android:layout_marginTop="120dp">
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@color/secondaryColor"
+            android:textColor="@color/primaryTextColor"
+            android:padding="10dp"
+            android:layout_alignParentStart="true"
+            android:drawableStart="@drawable/ic_exit_to_app"
+            android:id="@+id/btn_account_logout"
+            android:text="Logout"/>
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@color/secondaryColor"
+            android:textColor="@color/primaryTextColor"
+            android:padding="10dp"
+            android:id="@+id/btn_account_edit"
+            android:layout_alignParentEnd="true"
+            android:drawableEnd="@drawable/ic_create"
+            android:text="Edit"/>
+    </RelativeLayout>
+
+</RelativeLayout>

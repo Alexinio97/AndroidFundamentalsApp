@@ -36,8 +36,6 @@ public class HomeFragment extends Fragment implements CategoriesAdapter.OnCatego
     private static final String CATEGORY_ID="com.example.androidfundamentalsapp.category_id";
     private static final String CATEGORY_TITLE="com.example.androidfundamentalsapp.category_title";
 
-    private TextView txtFragment;
-    private Button btnLogout;
     private List<Category> m_categories;
     // firebase variables
     private FirebaseAuth m_auth;
@@ -84,16 +82,6 @@ public class HomeFragment extends Fragment implements CategoriesAdapter.OnCatego
                         }
                     }
                 });
-        btnLogout = view.findViewById(R.id.btn_logout);
-
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                m_auth.signOut();
-                Intent loginIntent = new Intent(view.getContext(), LoginActivity.class);
-                startActivity(loginIntent);
-            }
-        });
 
     }
 
