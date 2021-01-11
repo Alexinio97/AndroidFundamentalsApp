@@ -86,7 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
                             Log.d(TAG,"createUserWithEmail: Succes!");
                             // Add user data to firestore
                             User user = new User(m_auth.getUid(),firstName.getEditText().getText().toString(),
-                                    lastName.getEditText().getText().toString(),email);
+                                    lastName.getEditText().getText().toString(),email,null);
                             addUserToFirestore(user);
                         }
                         else {

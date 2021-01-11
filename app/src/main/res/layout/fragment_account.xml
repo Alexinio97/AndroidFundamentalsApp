@@ -64,17 +64,18 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_below="@id/txt_account_phone"
-        android:layout_marginTop="120dp">
+        android:id="@+id/layout_edit_buttons"
+        android:layout_marginTop="60dp">
         <Button
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:background="@color/secondaryColor"
-            android:textColor="@color/primaryTextColor"
+            android:background="#ff5050"
+            android:drawableStart="@drawable/ic_highlight_off"
+            android:visibility="invisible"
             android:padding="10dp"
+            android:id="@+id/btn_account_cancel"
             android:layout_alignParentStart="true"
-            android:drawableStart="@drawable/ic_exit_to_app"
-            android:id="@+id/btn_account_logout"
-            android:text="Logout"/>
+            android:text="Cancel"/>
         <Button
             android:layout_width="100dp"
             android:layout_height="wrap_content"
