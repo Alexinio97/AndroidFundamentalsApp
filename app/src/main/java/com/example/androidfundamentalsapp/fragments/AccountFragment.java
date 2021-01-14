@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.androidfundamentalsapp.R;
+import com.example.androidfundamentalsapp.helper.ValidationHelper;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
@@ -40,6 +41,9 @@ public class AccountFragment extends Fragment {
 
     private boolean isEditing = false;
 
+    // validation helper
+    private ValidationHelper validationHelper;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -59,6 +63,10 @@ public class AccountFragment extends Fragment {
         nickname = view.findViewById(R.id.txt_nickname);
         btnEditSave = view.findViewById(R.id.btn_account_edit);
         btnCancel = view.findViewById(R.id.btn_account_cancel);
+
+        // instantiate object set validation boolean isValid to True
+        validationHelper = new ValidationHelper();
+        validationHelper.setValid(true);
 
         m_db.collection("users").document(userUid).get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -85,10 +93,16 @@ public class AccountFragment extends Fragment {
                 }
                 else
                 {
+                    if(!validateAccountData()) {
+                        return;
+                    }
                     enableControls(false);
                     btnEditSave.setText("Edit");
                     btnCancel.setVisibility(View.INVISIBLE);
                     btnEditSave.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.secondaryColor));
+
+                    validationHelper.clearError(firstName);
+                    validationHelper.clearError(lastName);
                     saveUserData(view);
                 }
 
@@ -100,6 +114,8 @@ public class AccountFragment extends Fragment {
             public void onClick(View v) {
                 btnCancel.setVisibility(View.INVISIBLE);
                 enableControls(false);
+                validationHelper.clearError(firstName);
+                validationHelper.clearError(lastName);
                 btnEditSave.setText("Edit");
                 btnEditSave.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.secondaryColor));
             }
@@ -112,6 +128,17 @@ public class AccountFragment extends Fragment {
         lastName.setEnabled(isEnabled);
         nickname.setEnabled(isEnabled);
         isEditing = isEnabled;
+    }
+
+    // input validation method
+    private boolean validateAccountData()
+    {
+        validationHelper.isEmptyError(firstName,"First name is required!");
+        validationHelper.isEmptyError(lastName,"Last name is required!");
+
+        validationHelper.setMinMaxError(firstName,4,20);
+        validationHelper.setMinMaxError(lastName,4,30);
+        return validationHelper.isValid();
     }
 
 

@@ -13,6 +13,7 @@
         android:hint="First name"
         app:boxStrokeColor="@color/primaryDarkColor"
         android:enabled="false"
+        app:errorEnabled="true"
         android:id="@+id/txt_account_first_name">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -24,6 +25,7 @@
         android:layout_height="wrap_content"
         android:enabled="false"
         android:hint="Last name"
+        app:errorEnabled="true"
         android:layout_toRightOf="@+id/txt_account_first_name"
         android:layout_marginStart="25dp"
         android:id="@+id/txt_account_last_name">
@@ -38,6 +40,7 @@
         android:hint="Email"
         android:enabled="false"
         android:layout_below="@id/txt_account_first_name"
+        app:errorEnabled="true"
         android:layout_marginTop="20dp"
         android:id="@+id/txt_account_email">
         <com.google.android.material.textfield.TextInputEditText
@@ -51,6 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:id="@+id/txt_nickname"
+        app:errorEnabled="true"
         android:enabled="false"
         android:hint="Nickname"
         android:layout_below="@+id/txt_account_email">
