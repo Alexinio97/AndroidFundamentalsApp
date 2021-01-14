@@ -1,7 +1,5 @@
 package com.example.androidfundamentalsapp.fragments;
 
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,7 +16,6 @@ import androidx.fragment.app.Fragment;
 import com.example.androidfundamentalsapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -38,7 +34,7 @@ public class AccountFragment extends Fragment {
     private TextInputLayout firstName;
     private TextInputLayout lastName;
     private TextInputLayout email;
-    private TextInputLayout phone;
+    private TextInputLayout nickname;
     private Button btnEditSave;
     private Button btnCancel;
 
@@ -60,7 +56,7 @@ public class AccountFragment extends Fragment {
         firstName = view.findViewById(R.id.txt_account_first_name);
         lastName = view.findViewById(R.id.txt_account_last_name);
         email = view.findViewById(R.id.txt_account_email);
-        phone = view.findViewById(R.id.txt_account_phone);
+        nickname = view.findViewById(R.id.txt_nickname);
         btnEditSave = view.findViewById(R.id.btn_account_edit);
         btnCancel = view.findViewById(R.id.btn_account_cancel);
 
@@ -74,7 +70,7 @@ public class AccountFragment extends Fragment {
                             firstName.getEditText().setText(userData.getFirstName());
                             lastName.getEditText().setText(userData.getLastName());
                             email.getEditText().setText(userData.getEmail());
-                            phone.getEditText().setText(userData.getPhone());
+                            nickname.getEditText().setText(userData.getNickname());
                     }
                 });
 
@@ -82,23 +78,17 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(!isEditing) {
-                    firstName.setEnabled(true);
-                    lastName.setEnabled(true);
-                    phone.setEnabled(true);
+                    enableControls(true);
                     btnEditSave.setText("Save");
                     btnEditSave.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.primaryColor));
                     btnCancel.setVisibility(View.VISIBLE);
-                    isEditing = true;
                 }
                 else
                 {
-                    firstName.setEnabled(false);
-                    lastName.setEnabled(false);
-                    phone.setEnabled(false);
+                    enableControls(false);
                     btnEditSave.setText("Edit");
                     btnCancel.setVisibility(View.INVISIBLE);
                     btnEditSave.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.secondaryColor));
-                    isEditing = false;
                     saveUserData(view);
                 }
 
@@ -108,15 +98,20 @@ public class AccountFragment extends Fragment {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isEditing = false;
                 btnCancel.setVisibility(View.INVISIBLE);
-                firstName.setEnabled(false);
-                lastName.setEnabled(false);
-                phone.setEnabled(false);
+                enableControls(false);
                 btnEditSave.setText("Edit");
                 btnEditSave.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.secondaryColor));
             }
         });
+    }
+
+    private void enableControls(boolean isEnabled)
+    {
+        firstName.setEnabled(isEnabled);
+        lastName.setEnabled(isEnabled);
+        nickname.setEnabled(isEnabled);
+        isEditing = isEnabled;
     }
 
 
@@ -125,10 +120,10 @@ public class AccountFragment extends Fragment {
         String strFirstName = firstName.getEditText().getText().toString();
         String strLastName = lastName.getEditText().getText().toString();
         String strEmail = email.getEditText().getText().toString();
-        String strPhone = phone.getEditText().getText().toString();
+        String strNickname = nickname.getEditText().getText().toString();
 
         userData.setEmail(strEmail);
-        userData.setPhone(strPhone);
+        userData.setNickname(strNickname);
         userData.setFirstName(strFirstName);
         userData.setLastName(strLastName);
 

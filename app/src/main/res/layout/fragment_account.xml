@@ -50,20 +50,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:id="@+id/txt_account_phone"
+        android:id="@+id/txt_nickname"
         android:enabled="false"
-        android:hint="Phone"
+        android:hint="Nickname"
         android:layout_below="@+id/txt_account_email">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="phone"/>
+            android:inputType="text"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_below="@id/txt_account_phone"
+        android:layout_below="@id/txt_nickname"
         android:id="@+id/layout_edit_buttons"
         android:layout_marginTop="60dp">
         <Button

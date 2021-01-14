@@ -56,7 +56,7 @@
         android:layout_below="@id/txt_question_string"
         android:layout_marginTop="40dp"
         android:orientation="horizontal">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/secondaryLightColor"
@@ -66,23 +66,26 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_arrow_back"
             android:text="Back"
+            android:layout_alignParentStart="true"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:id="@+id/btn_last_question" />
         <ProgressBar
-            android:layout_width="190dp"
+            android:layout_width="200dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:id="@+id/pb_quiz_progress"
+            android:layout_centerInParent="true"
             android:layout_height="40dp"/>
         <Button
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:text="Next"
             android:drawableRight="@drawable/ic_arrow_forward"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:id="@+id/btn_next_question"/>
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
 </RelativeLayout>

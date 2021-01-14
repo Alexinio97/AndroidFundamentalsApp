@@ -7,18 +7,18 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
-    private String phone;
+    private String nickname;
 
-    public User(String UID, String firstName, String lastName, String email, @Nullable String phone) {
+    public User(String UID, String firstName, String lastName, String email, @Nullable String nickname) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.UID = UID;
-        this.phone = phone;
+        this.nickname = nickname;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getNickname() {
+        return nickname;
     }
 
     public String getUID() {
@@ -49,7 +49,7 @@ public class User {
         this.email = email;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }
