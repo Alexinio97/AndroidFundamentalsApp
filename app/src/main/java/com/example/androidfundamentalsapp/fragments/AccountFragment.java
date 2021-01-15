@@ -74,7 +74,7 @@ public class AccountFragment extends Fragment {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         Log.d(TAG,"User fetched!");
                         userData = new User(userUid,documentSnapshot.getString("firstName"),documentSnapshot.getString("lastName")
-                                            ,documentSnapshot.getString("email"),documentSnapshot.getString("phone"));
+                                            ,documentSnapshot.getString("email"),documentSnapshot.getString("nickname"));
                             firstName.getEditText().setText(userData.getFirstName());
                             lastName.getEditText().setText(userData.getLastName());
                             email.getEditText().setText(userData.getEmail());

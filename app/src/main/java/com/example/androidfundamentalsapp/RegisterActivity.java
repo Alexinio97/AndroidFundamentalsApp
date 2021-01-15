@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.androidfundamentalsapp.helper.ValidationHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,6 +35,8 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputLayout txtEmail;
     private TextInputLayout txtPassword;
 
+    // validationHelper class
+    private ValidationHelper validationHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,8 @@ public class RegisterActivity extends AppCompatActivity {
         txtEmail = findViewById(R.id.txt_email_register);
         txtPassword = findViewById(R.id.txt_password_register);
 
+        validationHelper = new ValidationHelper();
+
         btnGoToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +67,9 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!validateRegisterData()) {
+                    return;
+                }
                 btnRegister.setEnabled(false);
                 btnGoToLogin.setEnabled(false);
                 firstName.setEnabled(false);
@@ -124,5 +132,25 @@ public class RegisterActivity extends AppCompatActivity {
                         Log.w(TAG,"Error writing document",e);
                     }
                 });
+    }
+
+    private boolean validateRegisterData()
+    {
+        // clear old errors before setting them
+        validationHelper.clearError(firstName);
+        validationHelper.clearError(lastName);
+        validationHelper.clearError(txtEmail);
+        validationHelper.clearError(txtPassword);
+
+        validationHelper.isEmptyError(firstName,"First name is required.");
+        validationHelper.isEmptyError(lastName,"Last name is required.");
+        validationHelper.isEmptyError(txtPassword,"Password must not be empty.");
+        validationHelper.isEmptyError(txtEmail,"Email is required.");
+
+        validationHelper.setMinMaxError(firstName,4,20);
+        validationHelper.setMinMaxError(lastName,4,30);
+        validationHelper.setMinMaxError(txtPassword,6,20);
+
+        return  validationHelper.isValid();
     }
 }

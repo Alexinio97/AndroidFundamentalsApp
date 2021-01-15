@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -87,12 +88,15 @@ public class HomeFragment extends Fragment implements CategoriesAdapter.OnCatego
 
     @Override
     public void onCategoryClick(int position) {
-        String categoryId = m_categories.get(position).getId();
+        Category selectedCategory = m_categories.get(position);
+        if(selectedCategory.getCategoryQuizCount() == 0) {
+            Toast.makeText(getContext(), "No quizzes on this category.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if(m_quizzesIntent != null) {
-            m_quizzesIntent.putExtra(CATEGORY_ID,categoryId);
-            m_quizzesIntent.putExtra(CATEGORY_TITLE,m_categories.get(position).getCategoryName());
+            m_quizzesIntent.putExtra(CATEGORY_ID,selectedCategory.getId());
+            m_quizzesIntent.putExtra(CATEGORY_TITLE,selectedCategory.getCategoryName());
             startActivity(m_quizzesIntent);
-
         }
 
 
