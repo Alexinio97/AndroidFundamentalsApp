@@ -34,4 +34,10 @@ public class Category {
     public void setId(String id) {
         Id = id;
     }
+
+
+    @Override
+    public String toString() {
+        return categoryName;
+    }
 }

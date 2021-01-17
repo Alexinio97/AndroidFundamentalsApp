@@ -1,5 +1,6 @@
 package com.example.androidfundamentalsapp.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,10 +14,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.androidfundamentalsapp.QuizActivity;
 import com.example.androidfundamentalsapp.R;
 import com.example.androidfundamentalsapp.adapters.MyQuizzesAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -37,6 +41,9 @@ public class MyQuizzesFragment extends Fragment {
     private FirebaseFirestore m_db;
     private FirebaseAuth m_auth;
 
+    // add quiz floating action button
+    FloatingActionButton fabAddQuiz;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,8 +56,11 @@ public class MyQuizzesFragment extends Fragment {
         m_db = FirebaseFirestore.getInstance();
         m_auth = FirebaseAuth.getInstance();
         RecyclerView rvUserQuizzes = view.findViewById(R.id.rv_my_quizzes);
+        fabAddQuiz = view.findViewById(R.id.fab_add_quiz);
+
         userQuizzes = new ArrayList<>();
-        
+
+
         m_db.collection("users").document(m_auth.getUid()).collection("myQuizzes").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -78,6 +88,14 @@ public class MyQuizzesFragment extends Fragment {
                         }
                     }
                 });
+
+        fabAddQuiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent quizCreateIntent = new Intent(v.getContext(), QuizActivity.class);
+                startActivity(quizCreateIntent);
+            }
+        });
     }
 
 
