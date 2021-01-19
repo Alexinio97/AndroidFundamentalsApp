@@ -7,10 +7,9 @@
     android:padding="20dp"
     tools:context=".QuizActivity">
 
-    <fragment
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.example.androidfundamentalsapp.fragments.QuizCreateFragment"
         android:id="@+id/frag_quiz_create"
         />
 

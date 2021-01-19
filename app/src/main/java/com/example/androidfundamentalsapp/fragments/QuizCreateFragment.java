@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,7 @@ public class QuizCreateFragment extends Fragment {
     TextInputLayout txtDifficulty;
     Spinner spCategories;
     Button btnSaveQuiz;
+    ImageButton btnAddQuestion;
 
     private List<Category> categories;
     @Nullable
@@ -52,6 +54,7 @@ public class QuizCreateFragment extends Fragment {
         txtDifficulty = view.findViewById(R.id.txt_quiz_create_difficulty);
         spCategories = view.findViewById(R.id.sp_quiz_create_category);
         btnSaveQuiz = view.findViewById(R.id.btn_save_quiz);
+        btnAddQuestion = view.findViewById(R.id.img_btn_add_question);
 
         spCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -62,6 +65,17 @@ public class QuizCreateFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        btnAddQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                QuestionFragment questionFrag = new QuestionFragment();
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.frag_quiz_create,questionFrag,"questionFragment")
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
