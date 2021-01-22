@@ -1,6 +1,7 @@
 package com.example.androidfundamentalsapp.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.androidfundamentalsapp.QuizActivity;
 import com.example.androidfundamentalsapp.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
@@ -27,6 +29,7 @@ import java.util.List;
 import model.Category;
 
 public class QuizCreateFragment extends Fragment {
+    private static final String TAG ="QuizCreateFragment";
     // firestore
     private FirebaseFirestore m_db;
 
@@ -49,12 +52,22 @@ public class QuizCreateFragment extends Fragment {
         m_db = FirebaseFirestore.getInstance();
         categories = new ArrayList<>();
 
+        if(savedInstanceState != null)
+        {
+            Log.d(TAG,"Already there!");
+        }
         // get control references
         txtTitle = view.findViewById(R.id.txt_question_create_title);
         txtDifficulty = view.findViewById(R.id.txt_quiz_create_difficulty);
         spCategories = view.findViewById(R.id.sp_quiz_create_category);
         btnSaveQuiz = view.findViewById(R.id.btn_save_quiz);
         btnAddQuestion = view.findViewById(R.id.img_btn_add_question);
+
+        if(savedInstanceState != null) {
+            txtTitle.getEditText().setText(savedInstanceState.getString("Title"));
+            txtDifficulty.getEditText().setText(savedInstanceState.getString("Difficulty"));
+            spCategories.setSelection(savedInstanceState.getInt("CategoryIndex"));
+        }
 
         spCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -71,11 +84,7 @@ public class QuizCreateFragment extends Fragment {
         btnAddQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                QuestionFragment questionFrag = new QuestionFragment();
-                getParentFragmentManager().beginTransaction()
-                        .replace(R.id.frag_quiz_create,questionFrag,"questionFragment")
-                        .addToBackStack(null)
-                        .commit();
+                ((QuizActivity)getActivity()).switchToQuestionFrag();
             }
         });
 
@@ -92,6 +101,16 @@ public class QuizCreateFragment extends Fragment {
                     }
                 });
     }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d(TAG,"Saving fragment state!");
+        outState.putString("Title",txtTitle.getEditText().getText().toString());
+        outState.putString("Difficulty",txtDifficulty.getEditText().getText().toString());
+        outState.putInt("CategoryIndex",spCategories.getSelectedItemPosition());
+    }
+
 
     public void getSelectedCategory(View v)
     {
