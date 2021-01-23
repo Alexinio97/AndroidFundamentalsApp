@@ -84,10 +84,4 @@ public class QuizActivity extends AppCompatActivity {
         Log.d(TAG,"Saving data!");
         getSupportFragmentManager().putFragment(outState,QUIZ_CREATE_TAG,quizFrag);
     }
-
-    public void setQuizInput(TextInputLayout input)
-    {
-        // note Textinput layout can't be found from fragment for some reason, it returns null
-        input.getEditText().setText("Din Quiz Activity");
-    }
 }

@@ -49,6 +49,8 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         holder.txtPossibleAnswer.setText(answer);
         ImageButton imgBtnDelete = holder.imgBtnDeleteAnswer;
 
+        // change correct answer color to green and store the answer in Parent Activity
+        // through OnAnswerListener
         if(mAnswers.get(position).equals(correctAnswer))
         {
             holder.txtPossibleAnswer.setTextColor(Color.parseColor("#32CD32"));
@@ -57,16 +59,13 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         {
             holder.txtPossibleAnswer.setTextColor(Color.parseColor("#ffffff"));
         }
-        imgBtnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mAnswers.get(position).equals(correctAnswer))
-                {
-                    correctAnswer = null;
-                }
-                mAnswers.remove(position);
-                notifyDataSetChanged();
+        imgBtnDelete.setOnClickListener(v -> {
+            if(mAnswers.get(position).equals(correctAnswer))
+            {
+                correctAnswer = null;
             }
+            mAnswers.remove(position);
+            notifyDataSetChanged();
         });
     }
 
@@ -97,6 +96,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     }
 
     public interface OnAnswerListener{
-        public void onAnswerClick(int position);
+        void onAnswerClick(int position);
     }
 }
