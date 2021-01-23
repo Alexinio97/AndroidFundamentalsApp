@@ -1,5 +1,6 @@
 package com.example.androidfundamentalsapp.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,41 +35,57 @@ public class QuizCreateFragment extends Fragment {
     private FirebaseFirestore m_db;
 
     //layout controls
-    TextInputLayout txtTitle;
-    TextInputLayout txtDifficulty;
+    private TextInputLayout txtTitle;
+    private TextInputLayout txtDifficulty;
     Spinner spCategories;
     Button btnSaveQuiz;
     ImageButton btnAddQuestion;
 
+    private Bundle quizState;
     private List<Category> categories;
+    public QuizCreateFragment(){
+        super(R.layout.fragment_quiz_create);
+    }
+
+    public static QuizCreateFragment newInstance(String title,String difficulty,int categoryId)
+    {
+        QuizCreateFragment quizCreateFragment = new QuizCreateFragment();
+        Bundle args = new Bundle();
+        args.putString("Title",title);
+        args.putString("Difficulty",difficulty);
+        args.putInt("CategoryId",categoryId);
+        quizCreateFragment.setArguments(args);
+        return  quizCreateFragment;
+    }
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_quiz_create,container,false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        m_db = FirebaseFirestore.getInstance();
-        categories = new ArrayList<>();
-
-        if(savedInstanceState != null)
-        {
-            Log.d(TAG,"Already there!");
-        }
-        // get control references
-        txtTitle = view.findViewById(R.id.txt_question_create_title);
+        View view = inflater.inflate(R.layout.fragment_quiz_create,container,false);
+        txtTitle =  view.findViewById(R.id.txt_quiz_title_create);
         txtDifficulty = view.findViewById(R.id.txt_quiz_create_difficulty);
         spCategories = view.findViewById(R.id.sp_quiz_create_category);
         btnSaveQuiz = view.findViewById(R.id.btn_save_quiz);
         btnAddQuestion = view.findViewById(R.id.img_btn_add_question);
+        return view;
+    }
 
-        if(savedInstanceState != null) {
-            txtTitle.getEditText().setText(savedInstanceState.getString("Title"));
-            txtDifficulty.getEditText().setText(savedInstanceState.getString("Difficulty"));
-            spCategories.setSelection(savedInstanceState.getInt("CategoryIndex"));
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view,savedInstanceState);
+        m_db = FirebaseFirestore.getInstance();
+        categories = new ArrayList<>();
+
+        //check if state has been saved from parent activity
+        Bundle args = ((QuizActivity)getActivity()).getStateFromMainActivity();
+
+        if(args != null)
+        {
+            txtTitle.getEditText().setText(args.getString("Title"));
+            txtDifficulty.getEditText().setText(args.getString("Difficulty"));
         }
-
         spCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -84,6 +101,11 @@ public class QuizCreateFragment extends Fragment {
         btnAddQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle args = new Bundle();
+                args.putString("Title",txtTitle.getEditText().getText().toString());
+                args.putString("Difficulty",txtDifficulty.getEditText().getText().toString());
+                args.putInt("CategoryIndex",spCategories.getSelectedItemPosition());
+                ((QuizActivity)getActivity()).saveStateFromMainActivity(args);
                 ((QuizActivity)getActivity()).switchToQuestionFrag();
             }
         });
@@ -98,17 +120,10 @@ public class QuizCreateFragment extends Fragment {
                         }
                         ArrayAdapter<Category> spAdapter = new ArrayAdapter<Category>(view.getContext(),R.layout.support_simple_spinner_dropdown_item,categories);
                         spCategories.setAdapter(spAdapter);
+                        if(args != null)
+                            spCategories.setSelection(args.getInt("CategoryIndex"));
                     }
                 });
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        Log.d(TAG,"Saving fragment state!");
-        outState.putString("Title",txtTitle.getEditText().getText().toString());
-        outState.putString("Difficulty",txtDifficulty.getEditText().getText().toString());
-        outState.putInt("CategoryIndex",spCategories.getSelectedItemPosition());
     }
 
 

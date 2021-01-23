@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Title"
-        android:id="@+id/txt_quiz_create_title">
+        android:id="@+id/txt_quiz_title_create">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:text="Category"
         android:textSize="17dp"
-        android:layout_below="@id/txt_quiz_create_title"
+        android:layout_below="@id/txt_quiz_title_create"
         android:layout_marginTop="25dp"
         android:id="@+id/txt_sp_category_prefix"/>
     <androidx.appcompat.widget.AppCompatSpinner
@@ -31,7 +31,7 @@
         android:layout_marginTop="15dp"
         android:id="@+id/sp_quiz_create_category"
         android:layout_toEndOf="@id/txt_sp_category_prefix"
-        android:layout_below="@id/txt_quiz_create_title"/>
+        android:layout_below="@id/txt_quiz_title_create"/>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
