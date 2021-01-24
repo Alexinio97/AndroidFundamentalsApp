@@ -1,4 +1,4 @@
-package com.example.androidfundamentalsapp;
+package com.example.androidfundamentalsapp.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +11,7 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.androidfundamentalsapp.R;
 import com.example.androidfundamentalsapp.adapters.QuizAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

@@ -1,6 +1,5 @@
 package com.example.androidfundamentalsapp.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,7 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfundamentalsapp.MainActivity;
-import com.example.androidfundamentalsapp.QuizActivity;
+import com.example.androidfundamentalsapp.activities.QuizActivity;
 import com.example.androidfundamentalsapp.R;
 import com.example.androidfundamentalsapp.adapters.QuizCreationAdapter;
 import com.google.android.gms.tasks.OnFailureListener;

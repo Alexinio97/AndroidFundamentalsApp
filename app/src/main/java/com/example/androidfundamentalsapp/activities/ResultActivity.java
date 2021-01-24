@@ -1,4 +1,4 @@
-package com.example.androidfundamentalsapp;
+package com.example.androidfundamentalsapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.androidfundamentalsapp.MainActivity;
+import com.example.androidfundamentalsapp.R;
 
 public class ResultActivity extends AppCompatActivity {
     // constants
@@ -34,7 +37,7 @@ public class ResultActivity extends AppCompatActivity {
         btnBackToMyQuizzes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mainIntent = new Intent(ResultActivity.this,MainActivity.class);
+                Intent mainIntent = new Intent(ResultActivity.this, MainActivity.class);
                 mainIntent.putExtra(QUIZ_FRAGMENT,1);
                 startActivity(mainIntent);
             }

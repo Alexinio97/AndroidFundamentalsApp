@@ -1,4 +1,4 @@
-package com.example.androidfundamentalsapp;
+package com.example.androidfundamentalsapp.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.androidfundamentalsapp.R;
 import com.example.androidfundamentalsapp.helper.ValidationHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;

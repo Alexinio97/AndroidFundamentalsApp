@@ -13,15 +13,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        <activity android:name=".QuizActivity"></activity>
-        <activity android:name=".ResultActivity" />
-        <activity android:name=".QuestionsActivity" />
-        <activity android:name=".QuizzesActivity" />
+        <activity android:name=".activities.QuizActivity"></activity>
+        <activity android:name=".activities.ResultActivity" />
+        <activity android:name=".activities.QuestionsActivity" />
+        <activity android:name=".activities.QuizzesActivity" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activities.RegisterActivity"
             android:label="@string/title_activity_register" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

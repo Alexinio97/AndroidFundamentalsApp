@@ -1,4 +1,4 @@
-package com.example.androidfundamentalsapp;
+package com.example.androidfundamentalsapp.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
 
+import com.example.androidfundamentalsapp.R;
 import com.example.androidfundamentalsapp.fragments.QuestionFragment;
 import com.example.androidfundamentalsapp.fragments.QuizCreateFragment;
 import com.google.android.material.textfield.TextInputLayout;

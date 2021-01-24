@@ -16,7 +16,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.androidfundamentalsapp.QuizActivity;
+import com.example.androidfundamentalsapp.activities.QuizActivity;
 import com.example.androidfundamentalsapp.R;
 import com.example.androidfundamentalsapp.adapters.QuestionAdapter;
 import com.google.android.material.textfield.TextInputLayout;

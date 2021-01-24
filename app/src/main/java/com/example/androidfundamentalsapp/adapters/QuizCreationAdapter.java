@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class QuizCreationAdapter extends RecyclerView.Adapter<QuizCreationAdapter.QuizCreationViewHolder> {
+    // TODO: add question listener in order to be able to edit a question and it's answers
     private static final String TAG= "QuizCreationAdapter";
     private List<HashMap<String,Object>> mQuestions;
 

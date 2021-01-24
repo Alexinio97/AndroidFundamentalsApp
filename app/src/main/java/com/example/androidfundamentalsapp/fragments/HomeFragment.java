@@ -6,8 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,8 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfundamentalsapp.adapters.CategoriesAdapter;
-import com.example.androidfundamentalsapp.LoginActivity;
-import com.example.androidfundamentalsapp.QuizzesActivity;
+import com.example.androidfundamentalsapp.activities.QuizzesActivity;
 import com.example.androidfundamentalsapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

@@ -14,26 +14,22 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.androidfundamentalsapp.QuizActivity;
+import com.example.androidfundamentalsapp.activities.QuizActivity;
 import com.example.androidfundamentalsapp.R;
 import com.example.androidfundamentalsapp.adapters.MyQuizzesAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 import model.MyQuiz;
 
 public class MyQuizzesFragment extends Fragment {
+    // TODO: Possibility to edit a quiz made by user, launch QuizActivity with Bundle
     private static final String TAG="MyQuizzesFragment";
     private ArrayList<MyQuiz> userQuizzes;
 
