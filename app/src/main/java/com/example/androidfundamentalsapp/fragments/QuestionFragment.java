@@ -22,6 +22,7 @@ import com.example.androidfundamentalsapp.adapters.QuestionAdapter;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class QuestionFragment extends Fragment implements QuestionAdapter.OnAnswerListener {
     private static final String TAG="QuestionFragment";
@@ -35,6 +36,7 @@ public class QuestionFragment extends Fragment implements QuestionAdapter.OnAnsw
 
     private int selectedPosition = -1;
     QuestionAdapter questionAdapter;
+    private String correctAnswer = "";
 
     public static QuestionFragment newInstance(String param1, String param2) {
         QuestionFragment fragment = new QuestionFragment();
@@ -63,7 +65,24 @@ public class QuestionFragment extends Fragment implements QuestionAdapter.OnAnsw
         btnSaveQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((QuizActivity)getActivity()).switchToQuizCreateFrag();
+                String question = txtQuestion.getEditText().getText().toString();
+                if(question.equals(""))
+                {
+                    Toast.makeText(view.getContext(), "Question cannot be empty.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(mAnswers.size() < 2)
+                {
+                    Toast.makeText(view.getContext(), "At least two possible answers must be inserted.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                HashMap<String,Object> questionMap = new HashMap<>();
+                questionMap.put("questionString",question);
+                questionMap.put("correctAnswer",correctAnswer);
+                questionMap.put("answers",mAnswers);
+                questionMap.put("possibleAnswers",mAnswers.size());
+
+                ((QuizActivity)getActivity()).switchToQuizCreateFrag(questionMap);
             }
         });
 
@@ -119,5 +138,6 @@ public class QuestionFragment extends Fragment implements QuestionAdapter.OnAnsw
     public void onAnswerClick(int position) {
         Log.d(TAG,"Correct answer: " + mAnswers.get(position));
         questionAdapter.setSelectedPosition(mAnswers.get(position));
+        correctAnswer = mAnswers.get(position);
     }
 }

@@ -13,6 +13,9 @@ import com.example.androidfundamentalsapp.fragments.QuestionFragment;
 import com.example.androidfundamentalsapp.fragments.QuizCreateFragment;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 // this activity will allow the user to add its own quizzes
 
 public class QuizActivity extends AppCompatActivity {
@@ -38,14 +41,28 @@ public class QuizActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void switchToQuizCreateFrag()
+    public void switchToQuizCreateFrag(HashMap<String,Object> question)
     {
+        if(question != null)
+        {
+            // send question to quizCreationFrag
+            mainArgs.putSerializable("question",question);
+        }
+
         if(mainArgs != null)
         {
             String title = mainArgs.getString("Title");
             String difficulty = mainArgs.getString("Difficulty");
             int categoryId = mainArgs.getInt("CategoryId",0);
-            quizFrag = QuizCreateFragment.newInstance(title,difficulty,categoryId);
+            try{
+                ArrayList<HashMap<String,Object>> questions = (ArrayList<HashMap<String,Object>>)mainArgs.getSerializable("questions");
+                quizFrag = QuizCreateFragment.newInstance(title,difficulty,categoryId,questions);
+            }
+            catch (Exception ex)
+            {
+                Log.d(TAG,"Exception caught when getting question serializable",ex);
+            }
+
         }
         else
         {
@@ -78,10 +95,4 @@ public class QuizActivity extends AppCompatActivity {
         return mainArgs;
     }
 
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        Log.d(TAG,"Saving data!");
-        getSupportFragmentManager().putFragment(outState,QUIZ_CREATE_TAG,quizFrag);
-    }
 }

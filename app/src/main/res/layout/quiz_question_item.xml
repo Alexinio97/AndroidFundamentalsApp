@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        app:cardBackgroundColor="@color/secondaryColor"
+        app:cardBackgroundColor="@color/primaryColor"
         app:cardElevation="10dp"
         android:layout_height="70dp">
         <RelativeLayout
@@ -17,13 +18,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Question: "
-                android:textSize="15dp"
+                android:textSize="10dp"
                 android:textColor="@color/primaryTextColor"
                 android:id="@+id/txt_question_create_title_prefix"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:textSize="10dp"
                 android:layout_toEndOf="@+id/txt_question_create_title_prefix"
                 android:id="@+id/txt_question_create_title"
                 android:textColor="@color/primaryTextColor"
@@ -32,6 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txt_question_create_title_prefix"
+                android:textSize="10dp"
                 android:layout_marginTop="10dp"
                 android:text="Possible answers:"
                 android:textColor="@color/primaryTextColor"
@@ -42,6 +44,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/txt_possible_answers"
                 android:layout_marginTop="10dp"
+                android:textSize="10dp"
                 android:layout_below="@id/txt_question_create_title"
                 android:layout_toEndOf="@id/txt_possible_answers_prefix"
                 android:layout_marginStart="5dp"
@@ -52,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_delete"
                 android:layout_alignParentEnd="true"
-                android:background="@color/secondaryColor"
+                android:background="@color/primaryColor"
                 android:id="@+id/img_btn_delete_question"
                 android:layout_centerVertical="true"/>
 
