@@ -44,7 +44,7 @@ public class QuestionsActivity extends AppCompatActivity {
     private FirebaseFirestore m_db;
     private FirebaseAuth m_auth;
     private Map<String,Object> questions;
-    private ArrayList<HashMap<String,String>> formattedQuestions;
+    private ArrayList<HashMap<String,Object>> formattedQuestions;
     private ArrayList<String> userAnswers;
     private int answerCount = 0;
 
@@ -91,7 +91,7 @@ public class QuestionsActivity extends AppCompatActivity {
                                 questions = document.getData();
                                 for(Map.Entry<String, Object> entry : questions.entrySet())
                                 {
-                                    formattedQuestions = (ArrayList<HashMap<String,String>>)entry.getValue();
+                                    formattedQuestions = (ArrayList<HashMap<String,Object>>)entry.getValue();
                                 }
                                 pbAnswersProgress.setMax(formattedQuestions.size());
                                 pbAnswersProgress.setProgress(1);
@@ -155,17 +155,17 @@ public class QuestionsActivity extends AppCompatActivity {
     public void constructAnswers()
     {
         rgAnswers.removeAllViews();
-        questionString.setText(formattedQuestions.get(answerCount).get("questionString"));
-        for (int i = 1; i <= 10; i++) {
-            String answer = formattedQuestions.get(answerCount).get("answer" + i);
-            if(answer == null)
-                break;
+        HashMap<String,Object> questionMap = formattedQuestions.get(answerCount);
+        questionString.setText(questionMap.get("questionString").toString());
+
+        ArrayList<String> answers = (ArrayList<String>)formattedQuestions.get(answerCount).get("answers");
+        for(int i = 0; i< answers.size(); i++)
+        {
             RadioButton rdBtn = new RadioButton(this);
             rdBtn.setId(i);
             rdBtn.setPadding(0,0,0,20);
-            rdBtn.setText(answer);
+            rdBtn.setText(answers.get(i));
             rdBtn.setTextSize(20);
-
             if(userAnswers.size() > answerCount)
             {
                 if(userAnswers.get(answerCount).equals("answer" + i))
@@ -180,12 +180,12 @@ public class QuestionsActivity extends AppCompatActivity {
                     if(userAnswers.size() == answerCount)
                     {
                         Log.d(TAG,"Answer doesn't exists, adding it." + v.getId());
-                        userAnswers.add("answer"+ v.getId());
+                        userAnswers.add(answers.get(v.getId()));
                     }
                     else
                     {
                         Log.d(TAG,"Answer already saved, setting new answer.");
-                        userAnswers.set(answerCount,"answer"+ v.getId());
+                        userAnswers.set(answerCount,answers.get(v.getId()));
                     }
                 }
             });
@@ -198,7 +198,7 @@ public class QuestionsActivity extends AppCompatActivity {
         int userScore = 0;
         for(int i = 0; i < formattedQuestions.size(); i++)
         {
-            String correctAnswer = formattedQuestions.get(i).get("correctAnswer");
+            String correctAnswer = formattedQuestions.get(i).get("correctAnswer").toString();
             String userAnswer = userAnswers.get(i);
             Log.d(TAG,"User answer - " + userAnswer + "| Correct answer: " + correctAnswer);
             if(userAnswer.equals(correctAnswer))
