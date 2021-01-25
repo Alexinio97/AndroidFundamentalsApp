@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment implements CategoriesAdapter.OnCatego
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 {
                                     m_categories.add(new Category(document.getId(),
-                                            document.get("category").toString(),document.getDouble("QuizCount")));
+                                            document.get("categoryName").toString(),document.getDouble("categoryQuizCount")));
                                     Log.d(TAG, document.getId() + " => " + document.getData());
                                 }
                                 CategoriesAdapter adapter = new CategoriesAdapter(m_categories,HomeFragment.this::onCategoryClick);

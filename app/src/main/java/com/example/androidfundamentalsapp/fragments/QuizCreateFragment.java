@@ -39,9 +39,9 @@ import java.util.Map;
 import model.Category;
 import model.Quiz;
 
-public class QuizCreateFragment extends Fragment {
+public class QuizCreateFragment extends Fragment implements QuizCreationAdapter.OnQuestionListener {
     private static final String TAG ="QuizCreateFragment";
-    // firestore
+
     private FirebaseFirestore m_db;
 
     //layout controls
@@ -99,6 +99,7 @@ public class QuizCreateFragment extends Fragment {
         // set empty arraylist if there are no args
         mQuestions = new ArrayList<>();
 
+        boolean questionExists = false;
 
         if(args != null)
         {
@@ -110,8 +111,22 @@ public class QuizCreateFragment extends Fragment {
                 {
                     mQuestions = (ArrayList<HashMap<String,Object>>)args.getSerializable("questions");
                 }
-
-                mQuestions.add((HashMap<String, Object>) args.getSerializable("question"));
+                HashMap<String,Object> questionToAdd = (HashMap<String, Object>) args.getSerializable("question");
+                // don't add question if it already exists in array
+                String questionToAddId = questionToAdd.get("questionId").toString();
+                for(int i = 0; i< mQuestions.size(); i++)
+                {
+                    if(mQuestions.get(i).get("questionId").toString().equals(questionToAddId))
+                    {
+                        questionExists = true;
+                        mQuestions.set(i,questionToAdd);
+                        break;
+                    }
+                }
+                if(!questionExists)
+                {
+                    mQuestions.add(questionToAdd);
+                }
             }
             catch (Exception ex)
             {
@@ -120,7 +135,7 @@ public class QuizCreateFragment extends Fragment {
         }
 
 
-        quizAdapter = new QuizCreationAdapter(mQuestions);
+        quizAdapter = new QuizCreationAdapter(mQuestions,this);
         rvQuestions.setAdapter(quizAdapter);
         rvQuestions.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
@@ -153,7 +168,7 @@ public class QuizCreateFragment extends Fragment {
                     args.putSerializable("questions",mQuestions);
                 }
                 ((QuizActivity)getActivity()).saveStateFromMainActivity(args);
-                ((QuizActivity)getActivity()).switchToQuestionFrag();
+                ((QuizActivity)getActivity()).switchToQuestionFrag(null);
             }
         });
 
@@ -198,6 +213,7 @@ public class QuizCreateFragment extends Fragment {
                                         public void onSuccess(DocumentReference documentReference) {
                                             Log.d(TAG,"Questions added with success!");
                                             Intent mainIntent = new Intent(view.getContext(), MainActivity.class);
+                                            increaseCategoryCounter();
                                             // also update quizCount
                                             Toast.makeText(view.getContext(), "Quiz added with success!", Toast.LENGTH_LONG).show();
                                             startActivity(mainIntent);
@@ -219,7 +235,7 @@ public class QuizCreateFragment extends Fragment {
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for(QueryDocumentSnapshot snapshot : queryDocumentSnapshots)
                         {
-                            categories.add(new Category(snapshot.getId(),snapshot.getString("category"),snapshot.getDouble("QuizCount")));
+                            categories.add(new Category(snapshot.getId(),snapshot.getString("categoryName"),snapshot.getDouble("categoryQuizCount")));
                         }
                         ArrayAdapter<Category> spAdapter = new ArrayAdapter<Category>(view.getContext(),R.layout.support_simple_spinner_dropdown_item,categories);
                         spCategories.setAdapter(spAdapter);
@@ -229,10 +245,30 @@ public class QuizCreateFragment extends Fragment {
                 });
     }
 
-
-
-    public void getSelectedCategory(View v)
+    private void increaseCategoryCounter()
     {
-        Category category = (Category)spCategories.getSelectedItem();
+        Category selectedCategory = (Category)spCategories.getSelectedItem();
+        double categoryQuizCount = selectedCategory.getCategoryQuizCount();
+        categoryQuizCount++;
+        selectedCategory.setCategoryQuizCount(categoryQuizCount);
+
+        m_db.collection("categories").document(selectedCategory.getId())
+                .set(selectedCategory)
+                .addOnSuccessListener(aVoid -> {
+                    Log.d(TAG,"Updated category quiz counter - success!");
+                })
+        .addOnFailureListener(e -> {
+            Log.d(TAG,"Could not update quiz counter",e);
+        });
+    }
+
+    @Override
+    public void onQuestionClick(int position) {
+        Log.d(TAG,"Question clicked, populating data.");
+        Bundle args = new Bundle();
+        HashMap<String,Object> questionToEdit = mQuestions.get(position);
+        questionToEdit.put("questionId",position);
+        args.putSerializable("question",mQuestions.get(position));
+        ((QuizActivity)getActivity()).switchToQuestionFrag(args);
     }
 }

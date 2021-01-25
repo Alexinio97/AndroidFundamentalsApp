@@ -1,6 +1,7 @@
 package com.example.androidfundamentalsapp.activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -24,7 +25,6 @@ public class QuizActivity extends AppCompatActivity {
     private static final String QUESTION_TAG = "questionFragment";
     private static final String TAG = "QuizActivity";
 
-
     Fragment quizFrag;
     QuestionFragment questionFrag;
     private Bundle mainArgs;
@@ -46,7 +46,6 @@ public class QuizActivity extends AppCompatActivity {
     {
         if(question != null)
         {
-            // send question to quizCreationFrag
             mainArgs.putSerializable("question",question);
         }
 
@@ -75,8 +74,9 @@ public class QuizActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void switchToQuestionFrag()
+    public void switchToQuestionFrag(@Nullable Bundle args)
     {
+        questionFrag.setArguments(args);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frag_placeholder,questionFrag,QUESTION_TAG)
                 .addToBackStack(null)

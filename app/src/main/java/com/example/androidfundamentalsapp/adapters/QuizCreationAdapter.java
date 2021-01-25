@@ -13,18 +13,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfundamentalsapp.R;
+import com.example.androidfundamentalsapp.activities.QuizActivity;
 
 import java.util.HashMap;
 import java.util.List;
 
 public class QuizCreationAdapter extends RecyclerView.Adapter<QuizCreationAdapter.QuizCreationViewHolder> {
-    // TODO: add question listener in order to be able to edit a question and it's answers
     private static final String TAG= "QuizCreationAdapter";
     private List<HashMap<String,Object>> mQuestions;
+    private final OnQuestionListener mOnQuestionListener;
 
-    public QuizCreationAdapter(List<HashMap<String,Object>> questions)
+    public QuizCreationAdapter(List<HashMap<String,Object>> questions,OnQuestionListener onQuestionListener)
     {
         mQuestions = questions;
+        mOnQuestionListener = onQuestionListener;
     }
 
     @NonNull
@@ -36,7 +38,7 @@ public class QuizCreationAdapter extends RecyclerView.Adapter<QuizCreationAdapte
         // inflate category layout
         View quizView = inflater.inflate(R.layout.quiz_question_item,parent,false);
         // return a new view holder;
-        return new QuizCreationViewHolder(quizView);
+        return new QuizCreationViewHolder(quizView,mOnQuestionListener);
     }
 
     @Override
@@ -62,16 +64,29 @@ public class QuizCreationAdapter extends RecyclerView.Adapter<QuizCreationAdapte
         return mQuestions.size();
     }
 
-    public static class QuizCreationViewHolder extends RecyclerView.ViewHolder{
+    public static class QuizCreationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView txtQuestion;
         private final TextView txtPossibleAnswers;
         private final ImageButton imgBtnDeleteQuestion;
+        public OnQuestionListener onQuestionListener;
 
-        public QuizCreationViewHolder(@NonNull View itemView) {
+        public QuizCreationViewHolder(@NonNull View itemView,OnQuestionListener onQuestionListener) {
             super(itemView);
             txtQuestion = itemView.findViewById(R.id.txt_question_create_title);
             txtPossibleAnswers = itemView.findViewById(R.id.txt_possible_answers);
             imgBtnDeleteQuestion = itemView.findViewById(R.id.img_btn_delete_question);
+
+            this.onQuestionListener = onQuestionListener;
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onQuestionListener.onQuestionClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnQuestionListener{
+        public void onQuestionClick(int position);
     }
 }

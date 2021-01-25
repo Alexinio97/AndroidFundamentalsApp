@@ -38,7 +38,9 @@ public class QuestionFragment extends Fragment implements QuestionAdapter.OnAnsw
     QuestionAdapter questionAdapter;
     private String correctAnswer = "";
 
-    public static QuestionFragment newInstance(String param1, String param2) {
+    private HashMap<String,Object> questionReceived;
+
+    public static QuestionFragment newInstance(HashMap<String,Object> question) {
         QuestionFragment fragment = new QuestionFragment();
         return fragment;
     }
@@ -58,9 +60,28 @@ public class QuestionFragment extends Fragment implements QuestionAdapter.OnAnsw
         txtPossibleAnswer = view.findViewById(R.id.txt_possible_answer);
 
         mAnswers = new ArrayList<>();
+        Bundle args = getArguments();
+        if(args != null)
+        {
+            try {
+                questionReceived = (HashMap<String, Object>) args.getSerializable("question");
+                mAnswers = (ArrayList<String>) questionReceived.get("answers");
+                txtQuestion.getEditText().setText(questionReceived.get("questionString").toString());
+                correctAnswer = (String) questionReceived.get("correctAnswer");
+            }
+            catch (Exception ex)
+            {
+                Log.d(TAG,"Could not fetch fragment arguments.",ex);
+            }
+        }
         questionAdapter = new QuestionAdapter(mAnswers,this::onAnswerClick);
         rvAnswers.setAdapter(questionAdapter);
         rvAnswers.setLayoutManager(new LinearLayoutManager(view.getContext()));
+
+        if(!correctAnswer.equals(""))
+        {
+            questionAdapter.setSelectedPosition(correctAnswer);
+        }
 
         btnSaveQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,13 +97,32 @@ public class QuestionFragment extends Fragment implements QuestionAdapter.OnAnsw
                     Toast.makeText(view.getContext(), "At least two possible answers must be inserted.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                HashMap<String,Object> questionMap = new HashMap<>();
-                questionMap.put("questionString",question);
-                questionMap.put("correctAnswer",correctAnswer);
-                questionMap.put("answers",mAnswers);
-                questionMap.put("possibleAnswers",mAnswers.size());
+                if(correctAnswer.equals(""))
+                {
+                    Toast.makeText(view.getContext(), "Please select correct answer.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(questionReceived == null) {
+                    HashMap<String, Object> questionMap = new HashMap<>();
+                    questionMap.put("questionId",question);
+                    questionMap.put("questionString", question);
+                    questionMap.put("correctAnswer", correctAnswer);
+                    questionMap.put("answers", mAnswers);
+                    questionMap.put("possibleAnswers", mAnswers.size());
+                    correctAnswer = "";
+                    ((QuizActivity)getActivity()).switchToQuizCreateFrag(questionMap);
+                }
+                else {
+                    // in order to store the question ID
+                    questionReceived.put("questionString", question);
+                    questionReceived.put("correctAnswer", correctAnswer);
+                    questionReceived.put("answers", mAnswers);
+                    questionReceived.put("possibleAnswers", mAnswers.size());
+                    correctAnswer = "";
+                    ((QuizActivity)getActivity()).switchToQuizCreateFrag(questionReceived);
+                }
 
-                ((QuizActivity)getActivity()).switchToQuizCreateFrag(questionMap);
+
             }
         });
 

@@ -17,11 +17,11 @@ import model.Quiz;
 
 public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder> {
     private List<Quiz> m_quizzes;
-    private OnQuizListener onQuizListener;
+    private OnQuizListener mOnQuizListener;
 
     public QuizAdapter(List<Quiz> quizzes,OnQuizListener onQuizListener) {
         m_quizzes = quizzes;
-        this.onQuizListener = onQuizListener;
+        mOnQuizListener = onQuizListener;
     }
 
     @NonNull
@@ -33,7 +33,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
         // inflate category layout
         View quizView = inflater.inflate(R.layout.quiz_item,parent,false);
         // return a new view holder;
-        return new QuizViewHolder(quizView,onQuizListener);
+        return new QuizViewHolder(quizView, mOnQuizListener);
     }
 
     @Override
