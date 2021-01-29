@@ -1,6 +1,8 @@
 package com.example.androidfundamentalsapp.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +24,7 @@ public class QuizCreationAdapter extends RecyclerView.Adapter<QuizCreationAdapte
     private static final String TAG= "QuizCreationAdapter";
     private List<HashMap<String,Object>> mQuestions;
     private final OnQuestionListener mOnQuestionListener;
-
+    AlertDialog.Builder builder;
     public QuizCreationAdapter(List<HashMap<String,Object>> questions,OnQuestionListener onQuestionListener)
     {
         mQuestions = questions;
@@ -38,6 +40,7 @@ public class QuizCreationAdapter extends RecyclerView.Adapter<QuizCreationAdapte
         // inflate category layout
         View quizView = inflater.inflate(R.layout.quiz_question_item,parent,false);
         // return a new view holder;
+        builder = new AlertDialog.Builder(parent.getContext());
         return new QuizCreationViewHolder(quizView,mOnQuestionListener);
     }
 
@@ -54,9 +57,16 @@ public class QuizCreationAdapter extends RecyclerView.Adapter<QuizCreationAdapte
             Log.d(TAG,"Error at binding view holder.",ex);
         }
         holder.imgBtnDeleteQuestion.setOnClickListener(v -> {
-            mQuestions.remove(position);
-            notifyDataSetChanged();
+            builder.setMessage("Are you sure?")
+                    .setCancelable(true)
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        mQuestions.remove(position);
+                        notifyDataSetChanged();
+                    })
+                    .setNegativeButton("No", (dialog, which) -> dialog.cancel())
+                    .show();
         });
+
     }
 
     @Override

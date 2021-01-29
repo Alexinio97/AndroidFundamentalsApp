@@ -33,6 +33,7 @@ public class QuestionsActivity extends AppCompatActivity {
     private static final String QUIZ_ID="com.example.androidfundamentalsapp.quiz_id";
     private static final String QUIZ_TITLE="com.example.androidfundamentalsapp.quiz_title";
     private static final String USER_SCORE="com.example.androidfundamentalsapp.user_score";
+    private static final String USER_REF="com.example.androidfundamentalsapp.user_ref";
     private static final String TAG="QuestionsActivity";
 
     // data variables
@@ -213,6 +214,8 @@ public class QuestionsActivity extends AppCompatActivity {
         quizData.put("quizTitle",quizTitle.getText());
         quizData.put("questionsCount",formattedQuestions.size());
         quizData.put("score",score);
+        String userRef = getIntent().getStringExtra(USER_REF);
+        quizData.put("userRef",userRef);
         m_db.collection("users").document(m_auth.getUid())
                 .collection("myQuizzes").document(quizId).set(quizData)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {

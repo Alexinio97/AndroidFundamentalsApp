@@ -7,14 +7,16 @@ public class MyQuiz {
     private String m_title;
     private Double m_score;
     private Double m_questionsCount;
+    private String m_userRef;
 
-    public MyQuiz(String id,String title,Double score, Double questionsCount,String categoryId)
+    public MyQuiz(String id,String title,Double score, Double questionsCount,String categoryId,String userRef)
     {
         Id = id;
         m_title = title;
         m_score = score;
         m_questionsCount = questionsCount;
         m_categoryId = categoryId;
+        m_userRef = userRef;
     }
 
     public String get_Title() {
@@ -27,6 +29,14 @@ public class MyQuiz {
 
     public Double get_QuestionsCount() {
         return m_questionsCount;
+    }
+
+    public String getM_categoryId() {
+        return m_categoryId;
+    }
+
+    public String getM_userRef() {
+        return m_userRef;
     }
 
     public String getId() {

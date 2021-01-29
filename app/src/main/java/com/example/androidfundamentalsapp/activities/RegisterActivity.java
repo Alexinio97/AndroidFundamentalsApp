@@ -138,6 +138,7 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean validateRegisterData()
     {
         // clear old errors before setting them
+        validationHelper.setValid(true);
         validationHelper.clearError(firstName);
         validationHelper.clearError(lastName);
         validationHelper.clearError(txtEmail);
@@ -148,8 +149,8 @@ public class RegisterActivity extends AppCompatActivity {
         validationHelper.isEmptyError(txtPassword,"Password must not be empty.");
         validationHelper.isEmptyError(txtEmail,"Email is required.");
 
-        validationHelper.setMinMaxError(firstName,4,20);
-        validationHelper.setMinMaxError(lastName,4,30);
+        validationHelper.setMinMaxError(firstName,2,20);
+        validationHelper.setMinMaxError(lastName,2,30);
         validationHelper.setMinMaxError(txtPassword,6,20);
 
         return  validationHelper.isValid();

@@ -26,7 +26,9 @@ import com.example.androidfundamentalsapp.adapters.QuizCreationAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -38,11 +40,13 @@ import java.util.Map;
 
 import model.Category;
 import model.Quiz;
+import model.User;
 
 public class QuizCreateFragment extends Fragment implements QuizCreationAdapter.OnQuestionListener {
     private static final String TAG ="QuizCreateFragment";
-
+    private FirebaseAuth m_auth;
     private FirebaseFirestore m_db;
+    private User mUserLogged;
 
     //layout controls
     private TextInputLayout txtTitle;
@@ -52,7 +56,6 @@ public class QuizCreateFragment extends Fragment implements QuizCreationAdapter.
     Button btnSaveQuiz;
     ImageButton btnAddQuestion;
 
-    private Bundle quizState;
     private List<Category> categories;
     private ArrayList<HashMap<String,Object>> mQuestions;
     private QuizCreationAdapter quizAdapter;
@@ -92,6 +95,8 @@ public class QuizCreateFragment extends Fragment implements QuizCreationAdapter.
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view,savedInstanceState);
         m_db = FirebaseFirestore.getInstance();
+        m_auth = FirebaseAuth.getInstance();
+
         categories = new ArrayList<>();
 
         //check if state has been saved from parent activity
@@ -100,6 +105,12 @@ public class QuizCreateFragment extends Fragment implements QuizCreationAdapter.
         mQuestions = new ArrayList<>();
 
         boolean questionExists = false;
+        m_db.collection("users").document(m_auth.getUid()).get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    mUserLogged = new User(documentSnapshot.getId(),documentSnapshot.getString("firstName"),
+                            documentSnapshot.getString("lastName"),documentSnapshot.getString("email"),
+                            documentSnapshot.getString("nickname"));
+                });
 
         if(args != null)
         {
@@ -191,7 +202,7 @@ public class QuizCreateFragment extends Fragment implements QuizCreationAdapter.
                 return;
             }
 
-            Quiz myQuiz = new Quiz(title,(double)mQuestions.size(),difficulty);
+            Quiz myQuiz = new Quiz(title,(double)mQuestions.size(),difficulty,mUserLogged.getNickname(),mUserLogged.getUID());
             Category selectedCategory = (Category)spCategories.getSelectedItem();
             m_db.collection("categories").document(selectedCategory.getId())
                     .collection("Quizzes")
@@ -201,6 +212,7 @@ public class QuizCreateFragment extends Fragment implements QuizCreationAdapter.
                         public void onSuccess(DocumentReference documentReference) {
                             Log.d(TAG,"Quiz added, now adding questions!");
                             // add questions after quiz information has been added!
+                            addQuizReferenceToUser(documentReference.getId());
                             Map<String,Object> questionsMap = new HashMap<>();
                             questionsMap.put("questions",mQuestions);
                             m_db.collection("categories").document(selectedCategory.getId())
@@ -259,6 +271,28 @@ public class QuizCreateFragment extends Fragment implements QuizCreationAdapter.
                 })
         .addOnFailureListener(e -> {
             Log.d(TAG,"Could not update quiz counter",e);
+        });
+    }
+
+    private void addQuizReferenceToUser(String quizId)
+    {
+        Map<String,Object> quizData = new HashMap<>();
+        quizData.put("quizReference",quizId);
+        quizData.put("categoryReference",(categories.get(spCategories.getSelectedItemPosition()).getId()));
+        quizData.put("quizTitle",txtTitle.getEditText().getText().toString());
+        quizData.put("questionsCount",mQuestions.size());
+        quizData.put("userRef",m_auth.getUid());
+
+        m_db.collection("users").document(m_auth.getUid())
+                .collection("myQuizzes").document(quizId).set(quizData)
+                .addOnSuccessListener(aVoid -> {
+                   Log.d(TAG,"Quiz added to my quizzes!");
+                })
+        .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG,"Could not add quiz to my quizzes!",e);
+            }
         });
     }
 

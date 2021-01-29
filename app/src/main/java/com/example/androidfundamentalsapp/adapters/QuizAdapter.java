@@ -40,11 +40,12 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
     public void onBindViewHolder(@NonNull QuizAdapter.QuizViewHolder holder, int position) {
         Quiz quiz = m_quizzes.get(position);
 
-        TextView txtTitle = holder.title;
+        TextView txtTitle = holder.txtTitle;
         txtTitle.setText(quiz.getTitle());
-        TextView txtDifficulty = holder.difficulty;
+        TextView txtDifficulty = holder.txtDifficulty;
         txtDifficulty.setText(quiz.getDifficulty());
-        TextView txtQuestionsCount = holder.questionsCount;
+        TextView txtQuestionsCount = holder.txtQuestionsCount;
+        holder.txtMadeBy.setText(quiz.getMadeBy());
         txtQuestionsCount.setText(String.format("%.0f",quiz.getQuestionsCount()));
     }
 
@@ -54,17 +55,19 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
     }
 
     public static class QuizViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView title;
-        public TextView questionsCount;
-        public TextView difficulty;
+        public TextView txtTitle;
+        public TextView txtQuestionsCount;
+        public TextView txtDifficulty;
+        public TextView txtMadeBy;
         public OnQuizListener onQuizListener;
 
         public QuizViewHolder(@NonNull View itemView,OnQuizListener onQuizListener) {
             super(itemView);
 
-            title = itemView.findViewById(R.id.txt_quiz_title);
-            questionsCount = itemView.findViewById(R.id.txt_quiz_questions_count);
-            difficulty = itemView.findViewById(R.id.txt_difficulty);
+            txtTitle = itemView.findViewById(R.id.txt_quiz_title);
+            txtQuestionsCount = itemView.findViewById(R.id.txt_quiz_questions_count);
+            txtDifficulty = itemView.findViewById(R.id.txt_difficulty);
+            txtMadeBy = itemView.findViewById(R.id.txt_madeBy);
             this.onQuizListener = onQuizListener;
 
             itemView.setOnClickListener(this);

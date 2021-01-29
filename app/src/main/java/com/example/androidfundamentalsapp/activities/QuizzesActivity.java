@@ -29,6 +29,7 @@ public class QuizzesActivity extends AppCompatActivity implements QuizAdapter.On
     private static final String QUIZ_ID="com.example.androidfundamentalsapp.quiz_id";
     private static final String QUIZ_TITLE="com.example.androidfundamentalsapp.quiz_title";
     private static final String CATEGORY_TITLE="com.example.androidfundamentalsapp.category_title";
+    private static final String USER_REF="com.example.androidfundamentalsapp.user_ref";
     private static final String TAG="QuizzesActivity";
 
     TextView categoryTitle;
@@ -61,7 +62,8 @@ public class QuizzesActivity extends AppCompatActivity implements QuizAdapter.On
                             for(DocumentSnapshot snapshot : task.getResult())
                             {
                                 quizList.add(new Quiz(snapshot.getId(),snapshot.getString("title"),
-                                        snapshot.getDouble("questionsCount"),snapshot.getString("difficulty")));
+                                        snapshot.getDouble("questionsCount"),snapshot.getString("difficulty"),
+                                        snapshot.getString("madeBy"),snapshot.getString("userRef")));
                             }
                             QuizAdapter adapter = new QuizAdapter(quizList,QuizzesActivity.this::onQuizClick);
                             rvQuizList.setAdapter(adapter);
@@ -81,6 +83,7 @@ public class QuizzesActivity extends AppCompatActivity implements QuizAdapter.On
         questionsIntent.putExtra(QUIZ_ID,quizList.get(position).getId());
         questionsIntent.putExtra(CATEGORY_ID,categoryId);
         questionsIntent.putExtra(QUIZ_TITLE,quizList.get(position).getTitle());
+        questionsIntent.putExtra(USER_REF,quizList.get(position).getUserRef());
         startActivity(questionsIntent);
     }
 }

@@ -26,6 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Questions: "
+                android:textSize="10dp"
                 android:layout_below="@id/txt_quiz_title"
                 android:id="@+id/txt_question_count_prefix"
                 android:textColor="@color/primaryTextColor"
@@ -34,6 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/primaryTextColor"
+                android:textSize="10dp"
                 android:layout_below="@+id/txt_quiz_title"
                 android:layout_toRightOf="@id/txt_question_count_prefix"
                 android:text="5"
@@ -46,7 +48,8 @@
                 android:layout_below="@id/txt_quiz_title"
                 android:textColor="@color/primaryTextColor"
                 android:id="@+id/txt_difficulty_prefix"
-                android:layout_toEndOf="@+id/txt_quiz_questions_count"
+                android:layout_centerHorizontal="true"
+                android:textSize="10dp"
                 android:layout_marginStart="150dp"
                 android:layout_marginTop="15dp"/>
             <TextView
@@ -57,8 +60,30 @@
                 android:layout_below="@id/txt_quiz_title"
                 android:layout_toEndOf="@id/txt_difficulty_prefix"
                 android:text="Easy"
+                android:textSize="10dp"
                 android:layout_marginTop="15dp"
                 android:id="@+id/txt_difficulty"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Made by:"
+                android:layout_below="@id/txt_quiz_title"
+                android:layout_toStartOf="@id/txt_madeBy"
+                android:textColor="@color/primaryTextColor"
+                android:layout_marginTop="15dp"
+                android:textSize="10dp"
+                android:layout_marginStart="50dp"
+                android:id="@+id/txt_madeBy_prefix"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textSize="10dp"
+                android:layout_below="@id/txt_quiz_title"
+                android:id="@+id/txt_madeBy"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/primaryTextColor"/>
+
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

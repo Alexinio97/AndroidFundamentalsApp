@@ -65,10 +65,15 @@ public class MyQuizzesFragment extends Fragment {
                         {
                             String quizId = document.getId();
                             String categoryId = document.getString("categoryReference");
-                            double score = document.getDouble("score");
+                            double score = 0;
+                            if(document.getDouble("score") != null)
+                            {
+                                score = document.getDouble("score");
+                            }
                             double questionsCount = document.getDouble("questionsCount");
                             String quizTitle = document.getString("quizTitle");
-                            userQuizzes.add(new MyQuiz(quizId,quizTitle,score,questionsCount,categoryId));
+                            String userRef = document.getString("userRef");
+                            userQuizzes.add(new MyQuiz(quizId,quizTitle,score,questionsCount,categoryId,userRef));
                             Log.d(TAG,"Quiz added to user quizzes!");
                         }
                         if(userQuizzes.size() != 0) {
