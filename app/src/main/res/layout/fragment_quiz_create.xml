@@ -7,6 +7,8 @@
     android:padding="20dp"
     tools:context=".activities.QuizActivity">
 
+
+
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,10 +76,20 @@
         android:layout_height="wrap_content"
         android:text="Save quiz"
         android:layout_below="@id/rv_questions_list"
-        android:layout_centerHorizontal="true"
         android:textColor="@color/primaryTextColor"
         android:background="@color/secondaryColor"
         android:layout_marginTop="20dp"
         android:id="@+id/btn_save_quiz"/>
+
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:layout_below="@id/rv_questions_list"
+        android:background="@color/secondaryColor"
+        android:textColor="@color/primaryTextColor"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/btn_cancel_quiz"/>
 
 </RelativeLayout>

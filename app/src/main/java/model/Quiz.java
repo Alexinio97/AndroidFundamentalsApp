@@ -1,8 +1,6 @@
 package model;
 
 
-import javax.annotation.Nullable;
-
 public class Quiz {
     private String Id;
     private Double questionsCount;
@@ -13,13 +11,6 @@ public class Quiz {
     // user id from firestore
     private String userRef;
 
-    // constructor for receiving a quiz
-    public Quiz(String Id, String title, Double questionsCount, String difficulty) {
-        this.Id = Id;
-        this.questionsCount = questionsCount;
-        this.title = title;
-        this.difficulty = difficulty;
-    }
     // constructor for receiving with ID
     public Quiz(String Id, String title, Double questionsCount, String difficulty,String madeBy,String userRef) {
         this.Id = Id;

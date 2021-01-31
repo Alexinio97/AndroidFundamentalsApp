@@ -1,5 +1,7 @@
 package com.example.androidfundamentalsapp.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -54,6 +56,7 @@ public class QuizCreateFragment extends Fragment implements QuizCreationAdapter.
     private RecyclerView rvQuestions;
     Spinner spCategories;
     Button btnSaveQuiz;
+    Button btnCancelQuiz;
     ImageButton btnAddQuestion;
 
     private List<Category> categories;
@@ -87,6 +90,7 @@ public class QuizCreateFragment extends Fragment implements QuizCreationAdapter.
         btnSaveQuiz = view.findViewById(R.id.btn_save_quiz);
         btnAddQuestion = view.findViewById(R.id.img_btn_add_question);
         rvQuestions = view.findViewById(R.id.rv_questions_list);
+        btnCancelQuiz = view.findViewById(R.id.btn_cancel_quiz);
         return view;
     }
 
@@ -255,6 +259,16 @@ public class QuizCreateFragment extends Fragment implements QuizCreationAdapter.
                             spCategories.setSelection(args.getInt("CategoryIndex"));
                     }
                 });
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        btnCancelQuiz.setOnClickListener(v -> {
+            builder.setMessage("Are you sure?")
+                    .setNegativeButton("No",null)
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        Intent mainActivity = new Intent(view.getContext(),MainActivity.class);
+                        startActivity(mainActivity);
+                    }).show();
+        });
     }
 
     private void increaseCategoryCounter()
