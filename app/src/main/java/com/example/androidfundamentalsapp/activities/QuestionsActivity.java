@@ -164,7 +164,7 @@ public class QuestionsActivity extends AppCompatActivity {
             rdBtn.setTextSize(20);
             if(userAnswers.size() > answerCount)
             {
-                if(userAnswers.get(answerCount).equals("answer" + i))
+                if(userAnswers.get(answerCount).equals(answers.get(i)))
                 {
                     rdBtn.setChecked(true);
                 }
