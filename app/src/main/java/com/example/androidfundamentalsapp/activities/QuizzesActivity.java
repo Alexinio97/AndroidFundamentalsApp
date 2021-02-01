@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.androidfundamentalsapp.R;
 import com.example.androidfundamentalsapp.adapters.QuizAdapter;
+import com.example.androidfundamentalsapp.fragments.HomeFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -25,12 +26,10 @@ import java.util.List;
 import model.Quiz;
 
 public class QuizzesActivity extends AppCompatActivity implements QuizAdapter.OnQuizListener {
-    private static final String CATEGORY_ID="com.example.androidfundamentalsapp.category_id";
-    private static final String QUIZ_ID="com.example.androidfundamentalsapp.quiz_id";
-    private static final String QUIZ_TITLE="com.example.androidfundamentalsapp.quiz_title";
-    private static final String CATEGORY_TITLE="com.example.androidfundamentalsapp.category_title";
-    private static final String USER_REF="com.example.androidfundamentalsapp.user_ref";
-    private static final String TAG="QuizzesActivity";
+    public static final String QUIZ_ID="com.example.androidfundamentalsapp.quiz_id";
+    public static final String QUIZ_TITLE="com.example.androidfundamentalsapp.quiz_title";
+    public static final String USER_REF="com.example.androidfundamentalsapp.user_ref";
+    public static final String TAG="QuizzesActivity";
 
     TextView categoryTitle;
     private FirebaseFirestore m_db;
@@ -46,8 +45,8 @@ public class QuizzesActivity extends AppCompatActivity implements QuizAdapter.On
 
         RecyclerView rvQuizList = findViewById(R.id.rv_quiz_list);
         categoryTitle = findViewById(R.id.txt_quizzes_category_title);
-        categoryTitle.setText(getIntent().getStringExtra(CATEGORY_TITLE));
-        categoryId = getIntent().getStringExtra(CATEGORY_ID);
+        categoryTitle.setText(getIntent().getStringExtra(HomeFragment.CATEGORY_TITLE));
+        categoryId = getIntent().getStringExtra(HomeFragment.CATEGORY_ID);
         m_db = FirebaseFirestore.getInstance();
         // prepare the intent for questions
         questionsIntent = new Intent(QuizzesActivity.this,QuestionsActivity.class);
@@ -81,7 +80,7 @@ public class QuizzesActivity extends AppCompatActivity implements QuizAdapter.On
     @Override
     public void onQuizClick(int position) {
         questionsIntent.putExtra(QUIZ_ID,quizList.get(position).getId());
-        questionsIntent.putExtra(CATEGORY_ID,categoryId);
+        questionsIntent.putExtra(HomeFragment.CATEGORY_ID,categoryId);
         questionsIntent.putExtra(QUIZ_TITLE,quizList.get(position).getTitle());
         questionsIntent.putExtra(USER_REF,quizList.get(position).getUserRef());
         startActivity(questionsIntent);

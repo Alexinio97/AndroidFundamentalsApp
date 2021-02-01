@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.androidfundamentalsapp.R;
+import com.example.androidfundamentalsapp.fragments.HomeFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -29,11 +30,7 @@ import java.util.Map;
 
 public class QuestionsActivity extends AppCompatActivity {
     // constants
-    private static final String CATEGORY_ID="com.example.androidfundamentalsapp.category_id";
-    private static final String QUIZ_ID="com.example.androidfundamentalsapp.quiz_id";
-    private static final String QUIZ_TITLE="com.example.androidfundamentalsapp.quiz_title";
     private static final String USER_SCORE="com.example.androidfundamentalsapp.user_score";
-    private static final String USER_REF="com.example.androidfundamentalsapp.user_ref";
     private static final String TAG="QuestionsActivity";
 
     // data variables
@@ -58,8 +55,8 @@ public class QuestionsActivity extends AppCompatActivity {
 
         m_db = FirebaseFirestore.getInstance();
         m_auth = FirebaseAuth.getInstance();
-        String categoryId = getIntent().getStringExtra(CATEGORY_ID);
-        String quizId = getIntent().getStringExtra(QUIZ_ID);
+        String categoryId = getIntent().getStringExtra(HomeFragment.CATEGORY_ID);
+        String quizId = getIntent().getStringExtra(QuizzesActivity.QUIZ_ID);
 
         // instantiate list of map array
         questions = new HashMap<>();
@@ -73,7 +70,7 @@ public class QuestionsActivity extends AppCompatActivity {
         btnLastQuestion = findViewById(R.id.btn_last_question);
         pbAnswersProgress = findViewById(R.id.pb_quiz_progress);
 
-        quizTitle.setText(getIntent().getStringExtra(QUIZ_TITLE));
+        quizTitle.setText(getIntent().getStringExtra(QuizzesActivity.QUIZ_TITLE));
 
         m_db.collection("categories").document(categoryId).collection("Quizzes")
                 .document(quizId).collection("Questions").get()
@@ -214,7 +211,7 @@ public class QuestionsActivity extends AppCompatActivity {
         quizData.put("quizTitle",quizTitle.getText());
         quizData.put("questionsCount",formattedQuestions.size());
         quizData.put("score",score);
-        String userRef = getIntent().getStringExtra(USER_REF);
+        String userRef = getIntent().getStringExtra(QuizzesActivity.USER_REF);
         quizData.put("userRef",userRef);
         m_db.collection("users").document(m_auth.getUid())
                 .collection("myQuizzes").document(quizId).set(quizData)
@@ -225,7 +222,7 @@ public class QuestionsActivity extends AppCompatActivity {
                         Toast.makeText(QuestionsActivity.this, "Quiz added to my quizzes!", Toast.LENGTH_SHORT).show();
                         Intent resultIntent = new Intent(QuestionsActivity.this,ResultActivity.class);
                         resultIntent.putExtra(USER_SCORE,score);
-                        resultIntent.putExtra(QUIZ_TITLE,quizTitle.getText());
+                        resultIntent.putExtra(QuizzesActivity.QUIZ_TITLE,quizTitle.getText());
                         startActivity(resultIntent);
                     }
                 });

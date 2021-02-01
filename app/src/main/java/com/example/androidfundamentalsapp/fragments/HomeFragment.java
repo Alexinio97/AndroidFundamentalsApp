@@ -31,8 +31,8 @@ import model.Category;
 
 public class HomeFragment extends Fragment implements CategoriesAdapter.OnCategoryListener {
     private static String TAG="HomeFragment";
-    private static final String CATEGORY_ID="com.example.androidfundamentalsapp.category_id";
-    private static final String CATEGORY_TITLE="com.example.androidfundamentalsapp.category_title";
+    public static final String CATEGORY_ID="com.example.androidfundamentalsapp.category_id";
+    public static final String CATEGORY_TITLE="com.example.androidfundamentalsapp.category_title";
 
     private List<Category> m_categories;
     // firebase variables
