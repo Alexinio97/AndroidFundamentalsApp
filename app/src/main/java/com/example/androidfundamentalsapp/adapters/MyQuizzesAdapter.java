@@ -8,13 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfundamentalsapp.R;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
@@ -125,10 +124,10 @@ public class MyQuizzesAdapter extends RecyclerView.Adapter<MyQuizzesAdapter.MyQu
 
     public static class MyQuizzesViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView scoreObtained;
-        private TextView quizTitle;
-        private TextView questionCount;
-        private ImageButton imgBtnDeleteQuiz;
+        private final TextView scoreObtained;
+        private final TextView quizTitle;
+        private final TextView questionCount;
+        private final ImageButton imgBtnDeleteQuiz;
 
         public MyQuizzesViewHolder(@NonNull View itemView) {
             super(itemView);

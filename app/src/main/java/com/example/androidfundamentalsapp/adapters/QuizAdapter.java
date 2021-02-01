@@ -80,6 +80,6 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
     }
 
     public interface OnQuizListener{
-        public void onQuizClick(int position);
+        void onQuizClick(int position);
     }
 }

@@ -32,15 +32,21 @@ public class ResultActivity extends AppCompatActivity {
         String quizTitleExtra = getIntent().getStringExtra(QUIZ_TITLE);
         quizTitle.setText(quizTitleExtra);
         int userScoreExtra = getIntent().getIntExtra(USER_SCORE,0);
-        userScore.setText(Integer.toString(userScoreExtra));
+        userScore.setText(String.valueOf(userScoreExtra));
 
-        btnBackToMyQuizzes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent mainIntent = new Intent(ResultActivity.this, MainActivity.class);
-                mainIntent.putExtra(QUIZ_FRAGMENT,1);
-                startActivity(mainIntent);
-            }
+        btnBackToMyQuizzes.setOnClickListener(v -> {
+            Intent mainIntent = new Intent(ResultActivity.this, MainActivity.class);
+            mainIntent.putExtra(QUIZ_FRAGMENT,1);
+            startActivity(mainIntent);
+            finish();
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent mainIntent = new Intent(ResultActivity.this, MainActivity.class);
+        mainIntent.putExtra(QUIZ_FRAGMENT,1);
+        startActivity(mainIntent);
+        finish();
     }
 }

@@ -224,7 +224,9 @@ public class QuestionsActivity extends AppCompatActivity {
                         resultIntent.putExtra(USER_SCORE,score);
                         resultIntent.putExtra(QuizzesActivity.QUIZ_TITLE,quizTitle.getText());
                         startActivity(resultIntent);
+                        finish();
                     }
                 });
     }
+
 }

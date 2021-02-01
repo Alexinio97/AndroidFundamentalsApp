@@ -233,6 +233,7 @@ public class QuizCreateFragment extends Fragment implements QuizCreationAdapter.
                                             // also update quizCount
                                             Toast.makeText(view.getContext(), "Quiz added with success!", Toast.LENGTH_LONG).show();
                                             startActivity(mainIntent);
+                                            ((QuizActivity)getActivity()).finish();
                                         }
                                     });
                         }
@@ -263,10 +264,11 @@ public class QuizCreateFragment extends Fragment implements QuizCreationAdapter.
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
         btnCancelQuiz.setOnClickListener(v -> {
             builder.setMessage("Are you sure?")
-                    .setNegativeButton("No",null)
+                    .setNegativeButton("No",(dialog, which) -> dialog.cancel())
                     .setPositiveButton("Yes", (dialog, which) -> {
                         Intent mainActivity = new Intent(view.getContext(),MainActivity.class);
                         startActivity(mainActivity);
+                        ((QuizActivity)getActivity()).finish();
                     }).show();
         });
     }
